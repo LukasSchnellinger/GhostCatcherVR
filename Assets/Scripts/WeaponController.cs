@@ -18,12 +18,12 @@ public class WeaponController : MonoBehaviour
     private void OnEnable()
     {
         inputActions.Enable();
-        inputActions.XRIRightHandInteraction.Activate.performed += FireWeapon;
+        inputActions.XRIRightHand.Fire.performed += FireWeapon;
     }
 
     private void OnDisable()
     {
-        inputActions.XRIRightHandInteraction.Activate.performed -= FireWeapon;
+        inputActions.XRIRightHand.Fire.performed -= FireWeapon;
         inputActions.Disable();
     }
 
