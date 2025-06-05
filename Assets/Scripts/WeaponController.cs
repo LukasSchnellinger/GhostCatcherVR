@@ -8,11 +8,11 @@ public class WeaponController : MonoBehaviour
     public LineRenderer laserBeam;
     public AudioSource fireSound;
 
-    private XRControls inputActions;
+    private XRIDefaultInputActions inputActions;
 
     private void Awake()
     {
-        inputActions = new XRControls();
+        inputActions = new XRIDefaultInputActions();
     }
 
     private void OnEnable()
