@@ -28,7 +28,6 @@ public class FlashlightToggle : MonoBehaviour
         if (flashlight != null)
         {
             flashlight.enabled = !flashlight.enabled;
-            Debug.Log("Lampe ist jetzt " + (flashlight.enabled ? "an" : "aus"));
         }
     }
 }
