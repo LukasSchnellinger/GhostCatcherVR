@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuManager : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("GhostCatcherVR"); // Passe den Namen deiner Spielszenen-Datei an
+        Debug.Log("Start button clicked!");
+        SceneManager.LoadScene("GhostCatcherVR");
     }
 
     public void QuitGame()
