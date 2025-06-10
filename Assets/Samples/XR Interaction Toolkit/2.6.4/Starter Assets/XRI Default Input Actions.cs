@@ -2038,7 +2038,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""name"": ""Submit"",
                     ""type"": ""Button"",
                     ""id"": ""eba98c2e-6268-4233-bb88-946287bc753c"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
