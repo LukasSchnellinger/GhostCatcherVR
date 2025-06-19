@@ -7,8 +7,11 @@ public class WeaponController : MonoBehaviour
     public float range = 20f;
     public LineRenderer laserBeam;
     public AudioSource fireSound;
-    public Material laserMaterial;
+    public float fireCooldown = 1.5f; // Cooldown-Zeit in Sekunden
+    public float nextFireTime = 0f;
 
+    // NEU: VFX-Prefab-Referenz
+    public GameObject shootVFXPrefab;
 
     private XRIDefaultInputActions input;
 
@@ -31,14 +34,25 @@ public class WeaponController : MonoBehaviour
 
     private void FireWeapon(InputAction.CallbackContext ctx)
     {
-        Ray ray = new Ray(firePoint.position, firePoint.forward);
+        // Cooldown-Check
+        if (Time.time < nextFireTime) return; // Abbrechen, wenn Cooldown aktiv ist
+        nextFireTime = Time.time + fireCooldown; // Nächster Schusszeitpunkt setzen
 
+        // 1) Instanziere den VFX-Effekt an firePoint
+        if (shootVFXPrefab != null)
+        {
+            GameObject vfx = Instantiate(shootVFXPrefab, firePoint.position, firePoint.rotation);
+            // falls das Prefab automatisch zerstört wird, ok. Sonst:
+            Destroy(vfx, 2f); // löscht den Effekt nach 2 Sekunden
+        }
+
+        // 2) Laser-Beam wie gehabt
+        Ray ray = new Ray(firePoint.position, firePoint.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, range))
         {
             if (hit.collider.CompareTag("Ghost"))
-            {
                 Destroy(hit.collider.gameObject);
-            }
+
             StartCoroutine(FireEffect(hit.point));
         }
         else
@@ -46,6 +60,7 @@ public class WeaponController : MonoBehaviour
             StartCoroutine(FireEffect(ray.origin + ray.direction * range));
         }
 
+        // 3) Sound
         if (fireSound) fireSound.Play();
     }
 
@@ -56,26 +71,7 @@ public class WeaponController : MonoBehaviour
             laserBeam.SetPosition(0, firePoint.position);
             laserBeam.SetPosition(1, hitPoint);
             laserBeam.enabled = true;
-
-            float duration = 0.2f;
-            float elapsed = 0f;
-            Color baseColor = Color.red;
-
-            while (elapsed < duration)
-            {
-                elapsed += Time.deltaTime;
-                float pulse = Mathf.PingPong(Time.time * 5f, 1f);
-                Color animated = baseColor * Mathf.Lerp(1f, 3f, pulse);
-
-                if (laserMaterial != null)
-                {
-                    laserMaterial.SetColor("_BaseColor", animated); // Shader: URP/Unlit
-                    laserMaterial.SetColor("_EmissionColor", animated); // für Legacy/Standard Shader
-                }
-
-                yield return null;
-            }
-
+            yield return new WaitForSeconds(0.1f);
             laserBeam.enabled = false;
         }
     }
