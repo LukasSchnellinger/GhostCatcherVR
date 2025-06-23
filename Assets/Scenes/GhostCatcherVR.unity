@@ -5888,7 +5888,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9424003ad588117498d72c961cd0da27, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1636363590}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9424003ad588117498d72c961cd0da27, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1636363589}
   m_SourcePrefab: {fileID: 100100000, guid: 9424003ad588117498d72c961cd0da27, type: 3}
 --- !u!4 &720067909 stripped
 Transform:
@@ -13376,6 +13382,41 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 770250ad7a0f5ee479f84f7bcfe6f749, type: 3}
+--- !u!1 &1636363585 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9424003ad588117498d72c961cd0da27, type: 3}
+  m_PrefabInstance: {fileID: 716412114}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1636363589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636363585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5302ce4896ed4bd42bb55ceb212f77f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visibleAlpha: 0.8
+  fadeSpeed: 3
+--- !u!114 &1636363590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636363585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd51db2fd1f80a4cb75318f24277989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghostPrefab: {fileID: 919132149155446097, guid: 9424003ad588117498d72c961cd0da27, type: 3}
+  spawnInterval: 3
+  spawnRange: 3
+  maxGhosts: 10
 --- !u!1 &1640480244 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1421525585144540, guid: e3b08ca4cbd32534ea8d0b5e519709e2, type: 3}
