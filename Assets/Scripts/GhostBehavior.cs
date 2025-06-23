@@ -6,37 +6,47 @@ public class GhostBehavior : MonoBehaviour
 {
     public Transform player;
     public float speed = 2f;
+    public int health = 1;
 
     private bool isInLight = false;
-    private Renderer ghostRenderer;
+    private Renderer[] allRenderers;
 
     void Start()
     {
-        ghostRenderer = GetComponent<Renderer>();
+        // Alle Renderer-Komponenten sammeln (auch in Kindern)
+        allRenderers = GetComponentsInChildren<Renderer>();
 
-        if (ghostRenderer != null)
-        {
-            ghostRenderer.enabled = false; 
-        }
+        SetVisibility(false); // Geist startet unsichtbar
     }
 
     void Update()
     {
-        
         if (isInLight && player != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
         }
     }
 
-    
     public void SetInLight(bool value)
     {
         isInLight = value;
+        SetVisibility(value);
+    }
 
-        if (ghostRenderer != null)
+    private void SetVisibility(bool visible)
+    {
+        foreach (Renderer r in allRenderers)
         {
-            ghostRenderer.enabled = value; 
+            r.enabled = visible;
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

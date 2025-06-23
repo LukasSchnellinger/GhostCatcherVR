@@ -4,40 +4,31 @@ using UnityEngine;
 
 public class GhostRayDetector : MonoBehaviour
 {
-    public float detectionRange = 15f;       
-    public LayerMask ghostLayer;              
+    public float detectionRange = 15f;
+    public LayerMask ghostLayer;
 
-    private GhostBehavior lastHitGhost = null;
+    private List<GhostBehavior> litGhosts = new List<GhostBehavior>();
 
     void Update()
     {
-        RaycastHit hit;
+       
+        foreach (GhostBehavior ghost in litGhosts)
+        {
+            if (ghost != null)
+                ghost.SetInLight(false);
+        }
+        litGhosts.Clear();
+
         
-        
-        if (Physics.Raycast(transform.position, transform.forward, out hit, detectionRange, ghostLayer))
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, detectionRange, ghostLayer);
+
+        foreach (RaycastHit hit in hits)
         {
             GhostBehavior ghost = hit.collider.GetComponent<GhostBehavior>();
-            
             if (ghost != null)
             {
-                
-                if (ghost != lastHitGhost)
-                {
-                    if (lastHitGhost != null)
-                        lastHitGhost.SetInLight(false); 
-
-                    ghost.SetInLight(true);
-                    lastHitGhost = ghost;
-                }
-            }
-        }
-        else
-        {
-            
-            if (lastHitGhost != null)
-            {
-                lastHitGhost.SetInLight(false);
-                lastHitGhost = null;
+                ghost.SetInLight(true);
+                litGhosts.Add(ghost);
             }
         }
     }

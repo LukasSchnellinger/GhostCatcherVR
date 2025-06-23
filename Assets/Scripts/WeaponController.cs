@@ -7,11 +7,13 @@ public class WeaponController : MonoBehaviour
     public float range = 20f;
     public LineRenderer laserBeam;
     public AudioSource fireSound;
-    public float fireCooldown = 1.5f; // Cooldown-Zeit in Sekunden
-    public float nextFireTime = 0f;
+    public float fireCooldown = 1.5f;
+    private float nextFireTime = 0f;
 
-    // NEU: VFX-Prefab-Referenz
     public GameObject shootVFXPrefab;
+
+    // ðŸ”¹ Neu: Ghost-Layer einstellen
+    public LayerMask ghostLayer;
 
     private XRIDefaultInputActions input;
 
@@ -34,24 +36,26 @@ public class WeaponController : MonoBehaviour
 
     private void FireWeapon(InputAction.CallbackContext ctx)
     {
-        // Cooldown-Check
-        if (Time.time < nextFireTime) return; // Abbrechen, wenn Cooldown aktiv ist
-        nextFireTime = Time.time + fireCooldown; // Nächster Schusszeitpunkt setzen
+        if (Time.time < nextFireTime) return;
+        nextFireTime = Time.time + fireCooldown;
 
-        // 1) Instanziere den VFX-Effekt an firePoint
+        // 1) VFX beim Schuss
         if (shootVFXPrefab != null)
         {
             GameObject vfx = Instantiate(shootVFXPrefab, firePoint.position, firePoint.rotation);
-            // falls das Prefab automatisch zerstört wird, ok. Sonst:
-            Destroy(vfx, 2f); // löscht den Effekt nach 2 Sekunden
+            Destroy(vfx, 2f);
         }
 
-        // 2) Laser-Beam wie gehabt
+        // 2) Raycast mit GhostLayer
         Ray ray = new Ray(firePoint.position, firePoint.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, range))
+        if (Physics.Raycast(ray, out RaycastHit hit, range, ghostLayer))
         {
-            if (hit.collider.CompareTag("Ghost"))
-                Destroy(hit.collider.gameObject);
+            // ðŸ”¹ Geist erkennen
+            GhostBehavior ghost = hit.collider.GetComponent<GhostBehavior>();
+            if (ghost != null)
+            {
+                ghost.TakeDamage(1); // 1 Schaden pro Treffer
+            }
 
             StartCoroutine(FireEffect(hit.point));
         }
@@ -60,8 +64,8 @@ public class WeaponController : MonoBehaviour
             StartCoroutine(FireEffect(ray.origin + ray.direction * range));
         }
 
-        // 3) Sound
-        if (fireSound) fireSound.Play();
+        // 3) Sound abspielen
+        if (fireSound != null) fireSound.Play();
     }
 
     private System.Collections.IEnumerator FireEffect(Vector3 hitPoint)
