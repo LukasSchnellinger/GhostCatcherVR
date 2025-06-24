@@ -21,7 +21,8 @@ public class GhostBehavior : MonoBehaviour
 
     void Update()
     {
-        if (isInLight && player != null)
+        // Bewegung immer aktiv, unabhängig vom Licht
+        if (player != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
         }
@@ -46,7 +47,7 @@ public class GhostBehavior : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // Geist entfernen, wenn keine Lebenspunkte
         }
     }
 }

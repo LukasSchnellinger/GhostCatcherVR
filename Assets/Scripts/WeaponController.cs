@@ -3,18 +3,20 @@ using UnityEngine.InputSystem;
 
 public class WeaponController : MonoBehaviour
 {
+    [Header("Setup")]
     public Transform firePoint;
-    public float range = 20f;
-    public LineRenderer laserBeam;
-    public AudioSource fireSound;
-    public float fireCooldown = 1.5f;
-    private float nextFireTime = 0f;
-
-    public GameObject shootVFXPrefab;
-
-    // 🔹 Neu: Ghost-Layer einstellen
     public LayerMask ghostLayer;
 
+    [Header("FX")]
+    public LineRenderer laserBeam;
+    public GameObject shootVFXPrefab;
+    public AudioSource fireSound;
+
+    [Header("Schuss-Einstellungen")]
+    public float range = 20f;
+    public float fireCooldown = 1.5f;
+
+    private float nextFireTime = 0f;
     private XRIDefaultInputActions input;
 
     private void Awake()
@@ -39,22 +41,28 @@ public class WeaponController : MonoBehaviour
         if (Time.time < nextFireTime) return;
         nextFireTime = Time.time + fireCooldown;
 
-        // 1) VFX beim Schuss
-        if (shootVFXPrefab != null)
+        // 🔹 VFX
+        if (shootVFXPrefab && firePoint)
         {
             GameObject vfx = Instantiate(shootVFXPrefab, firePoint.position, firePoint.rotation);
             Destroy(vfx, 2f);
         }
 
-        // 2) Raycast mit GhostLayer
+        // 🔹 Raycast (mit Ghost-Layer)
+        if (firePoint == null)
+        {
+            Debug.LogWarning("⚠️ Kein FirePoint gesetzt!");
+            return;
+        }
+
         Ray ray = new Ray(firePoint.position, firePoint.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, range, ghostLayer))
         {
-            // 🔹 Geist erkennen
             GhostBehavior ghost = hit.collider.GetComponent<GhostBehavior>();
             if (ghost != null)
             {
-                ghost.TakeDamage(1); // 1 Schaden pro Treffer
+                ghost.TakeDamage(1);
+                Debug.Log("💥 Geist getroffen!");
             }
 
             StartCoroutine(FireEffect(hit.point));
@@ -64,8 +72,8 @@ public class WeaponController : MonoBehaviour
             StartCoroutine(FireEffect(ray.origin + ray.direction * range));
         }
 
-        // 3) Sound abspielen
-        if (fireSound != null) fireSound.Play();
+        // 🔹 Sound
+        if (fireSound) fireSound.Play();
     }
 
     private System.Collections.IEnumerator FireEffect(Vector3 hitPoint)
