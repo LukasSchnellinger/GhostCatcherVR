@@ -62,6 +62,7 @@ public class WeaponController : MonoBehaviour
             if (ghost != null)
             {
                 ghost.TakeDamage(1);
+                GameManager.Instance.AddKill();
                 Debug.Log("💥 Geist getroffen!");
             }
 

@@ -47,6 +47,7 @@ public class GhostBehavior : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            GameManager.Instance?.AddKill();
             Destroy(gameObject); // Geist entfernen, wenn keine Lebenspunkte
         }
     }

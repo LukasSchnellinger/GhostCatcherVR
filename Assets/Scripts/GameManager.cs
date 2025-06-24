@@ -1,33 +1,59 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro; // Für TextMeshPro
 
 public class GameManager : MonoBehaviour
 {
-    public float gameTime = 300f; // 5 Minuten in Sekunden
+    public static GameManager Instance;
+
+    public float gameTime = 300f; // 5 Minuten
     private float remainingTime;
 
-    public Text timerText;
-    public Text killCounterText;
+    public TextMeshProUGUI timerText;       
+    public TextMeshProUGUI killCounterText; 
+    public TextMeshProUGUI gameOverText;     // ✅ NEU für Game Over Anzeige
 
     private int ghostKills = 0;
+    private bool gameEnded = false;
+
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     void Start()
     {
         remainingTime = gameTime;
+
+        if (gameOverText != null)
+            gameOverText.gameObject.SetActive(false); // Anfangs ausblenden
+
         UpdateUI();
     }
 
     void Update()
     {
+        if (gameEnded) return;
+
         remainingTime -= Time.deltaTime;
 
-        if (remainingTime <= 0)
+        if (remainingTime <= 0f)
         {
-            remainingTime = 0;
+            remainingTime = 0f;
             EndGame();
         }
 
+        UpdateUI();
+    }
+
+    public void AddKill()
+    {
+        if (gameEnded) return;
+
+        ghostKills++;
         UpdateUI();
     }
 
@@ -46,15 +72,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddKill()
-    {
-        ghostKills++;
-        UpdateUI();
-    }
-
     void EndGame()
     {
-        Debug.Log("Spielzeit vorbei!");
-        
+        gameEnded = true;
+        Time.timeScale = 0f;
+
+        if (gameOverText != null)
+            gameOverText.gameObject.SetActive(true); // ✅ Game Over anzeigen
+
+        Debug.Log("🔚 Spielzeit vorbei – Game Over!");
+
+        // Nach 5 Sekunden zur Startszene zurück
+        StartCoroutine(WaitAndLoadStartScene());
+    }
+
+    private System.Collections.IEnumerator WaitAndLoadStartScene()
+    {
+        yield return new WaitForSecondsRealtime(5f); // ⏱ Echtzeit trotz Time.timeScale = 0
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("1 Start Scene"); // ✅ Stelle sicher, dass dieser Name exakt im Build Settings steht
     }
 }
