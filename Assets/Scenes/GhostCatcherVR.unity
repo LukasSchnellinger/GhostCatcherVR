@@ -5885,6 +5885,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9424003ad588117498d72c961cd0da27, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5895,6 +5899,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9424003ad588117498d72c961cd0da27, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1636363589}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9424003ad588117498d72c961cd0da27, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1636363596}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9424003ad588117498d72c961cd0da27, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1636363595}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9424003ad588117498d72c961cd0da27, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1636363594}
   m_SourcePrefab: {fileID: 100100000, guid: 9424003ad588117498d72c961cd0da27, type: 3}
 --- !u!4 &720067909 stripped
 Transform:
@@ -13417,6 +13430,50 @@ MonoBehaviour:
   spawnInterval: 3
   spawnRange: 3
   maxGhosts: 10
+--- !u!114 &1636363594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636363585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d62686ecd6b40269ea78c3bf10a4d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRange: 15
+  ghostLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &1636363595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636363585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86e34b06b2b2cf846971386155dae06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 1636363590}
+--- !u!114 &1636363596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636363585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04f645815fa614af0a648050f2826aeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1016136284}
+  speed: 2
+  health: 1
 --- !u!1 &1640480244 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1421525585144540, guid: e3b08ca4cbd32534ea8d0b5e519709e2, type: 3}
@@ -16438,8 +16495,10 @@ MonoBehaviour:
   laserBeam: {fileID: 1108106810}
   fireSound: {fileID: 0}
   fireCooldown: 1
-  nextFireTime: 0
   shootVFXPrefab: {fileID: 7966731087305637596, guid: adaf05d5fa3fa9243a99efaf450ac2df, type: 3}
+  ghostLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1950940597
 GameObject:
   m_ObjectHideFlags: 0
