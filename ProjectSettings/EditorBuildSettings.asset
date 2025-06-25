@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GhostCatcherVR.unity
     guid: 452a984f244d06848811143c253bce76
+  - enabled: 1
+    path: Assets/Scenes/Ghosts.unity
+    guid: b305ec11d12094cd88bed3ebab76f79d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5a32ea8152fdf1e45a649a7098e21dcc, type: 2}

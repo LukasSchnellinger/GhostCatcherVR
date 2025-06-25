@@ -90,6 +90,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(5f); // ⏱ Echtzeit trotz Time.timeScale = 0
         Time.timeScale = 1f;
-        SceneManager.LoadScene("1 Start Scene"); // ✅ Stelle sicher, dass dieser Name exakt im Build Settings steht
+        SceneManager.LoadScene("Menu"); // ✅ Stelle sicher, dass dieser Name exakt im Build Settings steht
     }
 }

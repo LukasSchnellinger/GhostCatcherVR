@@ -7516,6 +7516,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashlight: {fileID: 1558109057}
+  toggleOnClip: {fileID: 8300000, guid: d5fa22e00d0ec38499dacfaf3e41b968, type: 3}
+  toggleOffClip: {fileID: 8300000, guid: d7535a3decd95f2438936aa3dace6622, type: 3}
+  humLoopClip: {fileID: 8300000, guid: e9ab1ca404ab265449ac2204389fac40, type: 3}
 --- !u!1001 &933864487
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14233,7 +14236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb5334a6d0034d0186f61ee077bf92e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTime: 300
+  gameTime: 30
   timerText: {fileID: 384019024}
   killCounterText: {fileID: 1386825435}
   gameOverText: {fileID: 0}
@@ -17120,6 +17123,7 @@ MonoBehaviour:
   laserBeam: {fileID: 1108106810}
   shootVFXPrefab: {fileID: 7966731087305637596, guid: adaf05d5fa3fa9243a99efaf450ac2df, type: 3}
   fireSound: {fileID: 0}
+  beamLoopClip: {fileID: 8300000, guid: 2484af893296fac4281da5484edea6ef, type: 3}
   range: 20
   fireCooldown: 1
 --- !u!1 &1950940597
