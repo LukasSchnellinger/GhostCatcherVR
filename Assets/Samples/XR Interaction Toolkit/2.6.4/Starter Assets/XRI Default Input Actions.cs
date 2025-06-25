@@ -773,7 +773,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""name"": ""Select"",
                     ""type"": ""Button"",
                     ""id"": ""33754c03-48ec-46ef-9bc6-22ed6bfdd8e8"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -791,7 +791,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""name"": ""Activate"",
                     ""type"": ""Button"",
                     ""id"": ""0c0991c5-d329-4afc-8892-1076b440477c"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1325,15 +1325,6 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Fire"",
-                    ""type"": ""Button"",
-                    ""id"": ""7f0e5d97-77fa-41cd-a717-235394e6d4ea"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1567,17 +1558,6 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""action"": ""Grip Rotation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0573b16e-91b6-4ffa-83f8-9483707e6cd1"",
-                    ""path"": ""<Joystick>/trigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1589,7 +1569,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""name"": ""Select"",
                     ""type"": ""Button"",
                     ""id"": ""ac96c10b-c955-4a46-8e67-bf16bc069b53"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -2038,7 +2018,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""name"": ""Submit"",
                     ""type"": ""Button"",
                     ""id"": ""eba98c2e-6268-4233-bb88-946287bc753c"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -2962,7 +2942,6 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
         m_XRIRightHand_PokeRotation = m_XRIRightHand.FindAction("Poke Rotation", throwIfNotFound: true);
         m_XRIRightHand_GripPosition = m_XRIRightHand.FindAction("Grip Position", throwIfNotFound: true);
         m_XRIRightHand_GripRotation = m_XRIRightHand.FindAction("Grip Rotation", throwIfNotFound: true);
-        m_XRIRightHand_Fire = m_XRIRightHand.FindAction("Fire", throwIfNotFound: true);
         // XRI RightHand Interaction
         m_XRIRightHandInteraction = asset.FindActionMap("XRI RightHand Interaction", throwIfNotFound: true);
         m_XRIRightHandInteraction_Select = m_XRIRightHandInteraction.FindAction("Select", throwIfNotFound: true);
@@ -3889,7 +3868,6 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
     private readonly InputAction m_XRIRightHand_PokeRotation;
     private readonly InputAction m_XRIRightHand_GripPosition;
     private readonly InputAction m_XRIRightHand_GripRotation;
-    private readonly InputAction m_XRIRightHand_Fire;
     /// <summary>
     /// Provides access to input actions defined in input action map "XRI RightHand".
     /// </summary>
@@ -3953,10 +3931,6 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
         /// Provides access to the underlying input action "XRIRightHand/GripRotation".
         /// </summary>
         public InputAction @GripRotation => m_Wrapper.m_XRIRightHand_GripRotation;
-        /// <summary>
-        /// Provides access to the underlying input action "XRIRightHand/Fire".
-        /// </summary>
-        public InputAction @Fire => m_Wrapper.m_XRIRightHand_Fire;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -4022,9 +3996,6 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
             @GripRotation.started += instance.OnGripRotation;
             @GripRotation.performed += instance.OnGripRotation;
             @GripRotation.canceled += instance.OnGripRotation;
-            @Fire.started += instance.OnFire;
-            @Fire.performed += instance.OnFire;
-            @Fire.canceled += instance.OnFire;
         }
 
         /// <summary>
@@ -4075,9 +4046,6 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
             @GripRotation.started -= instance.OnGripRotation;
             @GripRotation.performed -= instance.OnGripRotation;
             @GripRotation.canceled -= instance.OnGripRotation;
-            @Fire.started -= instance.OnFire;
-            @Fire.performed -= instance.OnFire;
-            @Fire.canceled -= instance.OnFire;
         }
 
         /// <summary>
@@ -5307,13 +5275,6 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnGripRotation(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Fire" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnFire(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "XRI RightHand Interaction" which allows adding and removing callbacks.

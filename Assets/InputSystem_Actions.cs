@@ -72,7 +72,7 @@ using UnityEngine.InputSystem.Utilities;
 /// }
 /// </code>
 /// </example>
-public partial class @XRControls: IInputActionCollection2, IDisposable
+public partial class @XROrigin: IInputActionCollection2, IDisposable
 {
     /// <summary>
     /// Provides access to the underlying asset instance.
@@ -82,7 +82,7 @@ public partial class @XRControls: IInputActionCollection2, IDisposable
     /// <summary>
     /// Constructs a new instance.
     /// </summary>
-    public @XRControls()
+    public @XROrigin()
     {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""InputSystem_Actions"",
@@ -1197,11 +1197,11 @@ public partial class @XRControls: IInputActionCollection2, IDisposable
         m_XRIRightHand_Fire = m_XRIRightHand.FindAction("Fire", throwIfNotFound: true);
     }
 
-    ~@XRControls()
+    ~@XROrigin()
     {
-        UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, XRControls.Player.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, XRControls.UI.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_XRIRightHand.enabled, "This will cause a leak and performance issues, XRControls.XRIRightHand.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, XROrigin.Player.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, XROrigin.UI.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_XRIRightHand.enabled, "This will cause a leak and performance issues, XROrigin.XRIRightHand.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1291,12 +1291,12 @@ public partial class @XRControls: IInputActionCollection2, IDisposable
     /// </summary>
     public struct PlayerActions
     {
-        private @XRControls m_Wrapper;
+        private @XROrigin m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public PlayerActions(@XRControls wrapper) { m_Wrapper = wrapper; }
+        public PlayerActions(@XROrigin wrapper) { m_Wrapper = wrapper; }
         /// <summary>
         /// Provides access to the underlying input action "Player/Move".
         /// </summary>
@@ -1476,12 +1476,12 @@ public partial class @XRControls: IInputActionCollection2, IDisposable
     /// </summary>
     public struct UIActions
     {
-        private @XRControls m_Wrapper;
+        private @XROrigin m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public UIActions(@XRControls wrapper) { m_Wrapper = wrapper; }
+        public UIActions(@XROrigin wrapper) { m_Wrapper = wrapper; }
         /// <summary>
         /// Provides access to the underlying input action "UI/Navigate".
         /// </summary>
@@ -1662,12 +1662,12 @@ public partial class @XRControls: IInputActionCollection2, IDisposable
     /// </summary>
     public struct XRIRightHandActions
     {
-        private @XRControls m_Wrapper;
+        private @XROrigin m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public XRIRightHandActions(@XRControls wrapper) { m_Wrapper = wrapper; }
+        public XRIRightHandActions(@XROrigin wrapper) { m_Wrapper = wrapper; }
         /// <summary>
         /// Provides access to the underlying input action "XRIRightHand/Fire".
         /// </summary>

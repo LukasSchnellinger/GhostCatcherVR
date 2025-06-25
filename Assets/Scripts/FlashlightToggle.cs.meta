@@ -3,7 +3,11 @@ guid: f327a1f9c2144ed479eb858eeefdc161
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - flashlight: {instanceID: 0}
+  - toggleOnClip: {fileID: 8300000, guid: d5fa22e00d0ec38499dacfaf3e41b968, type: 3}
+  - toggleOffClip: {fileID: 8300000, guid: d7535a3decd95f2438936aa3dace6622, type: 3}
+  - humLoopClip: {fileID: 8300000, guid: e9ab1ca404ab265449ac2204389fac40, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -10,11 +10,7 @@ public class WeaponController : MonoBehaviour
     [Header("FX")]
     public LineRenderer laserBeam;
     public GameObject shootVFXPrefab;
-    public AudioSource fireSound;
-
-    [Header("Audio Loop")]
-    public AudioClip beamLoopClip;
-    private AudioSource beamAudioSource;
+    public AudioClip fireSound;
 
     [Header("Schuss-Einstellungen")]
     public float range = 20f;
@@ -26,11 +22,6 @@ public class WeaponController : MonoBehaviour
     private void Awake()
     {
         input = new XRIDefaultInputActions();
-
-        // Beam-Loop-Sound-Setup
-        beamAudioSource = gameObject.AddComponent<AudioSource>();
-        beamAudioSource.loop = true;
-        beamAudioSource.clip = beamLoopClip;
     }
 
     private void OnEnable()
@@ -47,18 +38,17 @@ public class WeaponController : MonoBehaviour
 
     private void FireWeapon(InputAction.CallbackContext ctx)
     {
-        // Cooldown prüfen
         if (Time.time < nextFireTime) return;
         nextFireTime = Time.time + fireCooldown;
 
-        // VFX instanziieren
-        if (shootVFXPrefab != null && firePoint != null)
+        // 🔹 VFX
+        if (shootVFXPrefab && firePoint)
         {
             GameObject vfx = Instantiate(shootVFXPrefab, firePoint.position, firePoint.rotation);
             Destroy(vfx, 2f);
         }
 
-        // Raycast auf Ghost-Layer
+        // 🔹 Raycast (mit Ghost-Layer)
         if (firePoint == null)
         {
             Debug.LogWarning("⚠️ Kein FirePoint gesetzt!");
@@ -66,8 +56,7 @@ public class WeaponController : MonoBehaviour
         }
 
         Ray ray = new Ray(firePoint.position, firePoint.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, range, ghostLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, range, ghostLayer))
         {
             GhostBehavior ghost = hit.collider.GetComponent<GhostBehavior>();
             if (ghost != null)
@@ -76,6 +65,7 @@ public class WeaponController : MonoBehaviour
                 GameManager.Instance.AddKill();
                 Debug.Log("💥 Geist getroffen!");
             }
+
             StartCoroutine(FireEffect(hit.point));
         }
         else
@@ -83,30 +73,20 @@ public class WeaponController : MonoBehaviour
             StartCoroutine(FireEffect(ray.origin + ray.direction * range));
         }
 
-        // Einmaliger Feuer-Sound
-        if (fireSound != null)
-            fireSound.Play();
-
-        // Beam-Loop starten
-        //if (beamLoopClip != null && !beamAudioSource.isPlaying)
-        beamAudioSource.Play();
+        // 🔹 Sound
+        //if (fireSound) fireSound.Play();
     }
 
     private System.Collections.IEnumerator FireEffect(Vector3 hitPoint)
     {
         if (laserBeam != null)
         {
+            //fireSound.Play();
             laserBeam.SetPosition(0, firePoint.position);
             laserBeam.SetPosition(1, hitPoint);
             laserBeam.enabled = true;
-
             yield return new WaitForSeconds(0.1f);
-
             laserBeam.enabled = false;
-
-            // Beam-Loop-Sound beenden
-            //if (beamAudioSource.isPlaying)
-                //beamAudioSource.Stop();
         }
     }
 }

@@ -3,7 +3,12 @@ guid: 2844802a4aa9a3848b85e5a0493e75d3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - firePoint: {instanceID: 0}
+  - laserBeam: {instanceID: 0}
+  - shootVFXPrefab: {instanceID: 0}
+  - fireSound: {instanceID: 0}
+  - beamLoopClip: {fileID: 8300000, guid: 2484af893296fac4281da5484edea6ef, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

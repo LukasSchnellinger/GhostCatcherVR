@@ -14,7 +14,7 @@ public class FlashlightToggle : MonoBehaviour
     public AudioClip humLoopClip;                       // Loop-Sound, wenn Lampe an ist
 
     private AudioSource audioSource;
-    private bool isHumPlaying = false;
+    private bool isHumPlaying = true;
     private XRIDefaultInputActions inputActions;
 
     private void Awake()
